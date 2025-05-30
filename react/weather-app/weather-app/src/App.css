@@ -1,0 +1,197 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+body {
+  margin: 0;
+  font-family: 'Vazirmatn', sans-serif;
+  background: linear-gradient(to top, #1e3c72, #2a5298);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-app {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.weather-app h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.weather-info {
+  margin-top: 1rem;
+}
+
+.weather-info h2 {
+  margin: 0.5rem 0;
+}
+
+.weather-info p {
+  margin: 0.3rem 0;
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+}
+
+button {
+  background-color: #ffffff33;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #ffffff55;
+}
+
+@media (max-width: 500px) {
+  .weather-app {
+    padding: 1rem;
+  }
+
+  .weather-app h1 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+/* App.css */
+body {
+  margin: 0;
+  font-family: 'Vazir', sans-serif;
+  background: linear-gradient(to bottom, #3498db, #2c3e50);
+  color: #fff;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+}
+
+.weather h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.weather h2 {
+  font-size: 3rem;
+  margin: 10px 0;
+}
+
+.weather p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.weather img {
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.manual-input {
+  margin-bottom: 20px;
+}
+
+.manual-input input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 80%;
+  max-width: 300px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.manual-input button {
+  padding: 10px 20px;
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.manual-input button:hover {
+  background-color: #1f618d;
+}
+
+.error {
+  background-color: rgba(255, 0, 0, 0.2);
+  color: #ffdddd;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.loading {
+  font-style: italic;
+  font-size: 1.1rem;
+}
