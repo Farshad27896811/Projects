@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لیست کارها با آیکون</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      padding: 30px;
+      direction: rtl;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    input[type="text"], select {
+      width: 96%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      transition: border 0.3s;
+    }
+    input:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+    select {
+      background: #f9f9f9;
+      width: 100%;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #fdfdfd;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    li.done {
+      text-decoration: line-through;
+      color: #95a5a6;
+      background: #ecf0f1;
+    }
+    li:hover {
+      background: #f0fbff;
+    }
+    button {
+      border: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s;
+    }
+    .del-btn {
+      background: #e74c3c;
+      color: white;
+    }
+    .del-btn:hover {
+      background: #c0392b;
+    }
+    .edit-btn {
+      background: #27ae60;
+      color: white;
+    }
+    .edit-btn:hover {
+      background: #1e8449;
+    }
+    .actions {
+      display: flex;
+      gap: 5px;
+    }
+    .fa {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2><i class="fas fa-tasks"></i> لیست کارهای من</h2>
+    <input type="text" id="taskInput" placeholder="افزودن کار جدید...">
+    <input type="text" id="categoryInput" placeholder="دسته‌بندی (اختیاری)...">
+    <select id="filter">
+      <option value="all">همه</option>
+      <option value="done">انجام شده</option>
+      <option value="not-done">انجام نشده</option>
+    </select>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    const taskInput = document.getElementById("taskInput");
+    const categoryInput = document.getElementById("categoryInput");
+    const filterSelect = document.getElementById("filter");
+    const taskList = document.getElementById("taskList");
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    renderTasks();
+
+    taskInput.addEventListener("keypress", function(e) {
+      if (e.key === "Enter" && taskInput.value.trim() !== "") {
+        const task = {
+          text: taskInput.value.trim(),
+          done: false,
+          category: categoryInput.value.trim()
+        };
+        tasks.push(task);
+        saveTasks();
+        renderTasks();
+        taskInput.value = "";
+        categoryInput.value = "";
+      }
+    });
+
+    filterSelect.addEventListener("change", renderTasks);
+
+    function renderTasks() {
+      taskList.innerHTML = "";
+      const filter = filterSelect.value;
+      tasks.forEach((task, index) => {
+        if (filter === "done" && !task.done) return;
+        if (filter === "not-done" && task.done) return;
+        addTaskToDOM(task, index);
+      });
+    }
+
+    function addTaskToDOM(task, index) {
+      const li = document.createElement("li");
+      if (task.done) li.classList.add("done");
+      const span = document.createElement("span");
+      span.innerHTML = `<strong>${task.text}</strong>` + (task.category ? ` <em>(${task.category})</em>` : "");
+      span.addEventListener("click", () => {
+        task.done = !task.done;
+        saveTasks();
+        renderTasks();
+      });
+
+      const delBtn = document.createElement("button");
+      delBtn.className = "del-btn";
+      delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+      delBtn.addEventListener("click", () => {
+        tasks.splice(index, 1);
+        saveTasks();
+        renderTasks();
+      });
+
+      const editBtn = document.createElement("button");
+      editBtn.className = "edit-btn";
+      editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+      editBtn.addEventListener("click", () => {
+        const newText = prompt("ویرایش کار:", task.text);
+        const newCategory = prompt("ویرایش دسته‌بندی:", task.category);
+        if (newText !== null) task.text = newText.trim();
+        if (newCategory !== null) task.category = newCategory.trim();
+        saveTasks();
+        renderTasks();
+      });
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+
+      li.appendChild(span);
+      li.appendChild(actions);
+      taskList.appendChild(li);
+    }
+
+    function saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  </script>
+</body>
+</html>
